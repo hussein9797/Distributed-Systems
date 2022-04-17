@@ -47,6 +47,7 @@ public class ClientCoordinator implements Runnable {
             }
 
             ArrayList<CFile> files =new ArrayList<CFile>();
+            System.out.println("enter the file name you want to search");
             while((targetFile=bufferedReader.readLine())!=null){
                 files=fileControllerStub.fileSearch(targetFile);
                 for (CFile file : files) {
@@ -78,8 +79,9 @@ public class ClientCoordinator implements Runnable {
                 sourceDir=cFiles.get(i).getDirectory();
             }
         }
-        DownloadInterface DownLoadStub = (DownloadInterface) Naming.lookup("rmi://localhost:"+portForAnotherNode+"/FileServer");
-        byte[] filetoDownload=DownLoadStub.downloadFile(targetFile);
+        Registry registry =LocateRegistry.getRegistry();
+//        DownloadInterface DownLoadStub = (DownloadInterface) registry.lookup("rmi://localhost:"+portForAnotherNode+"/FileServer");
+//        byte[] filetoDownload=DownLoadStub.downloadFile(targetFile);
         String source = sourceDir+"\\"+targetFile;
         //directory where file will be copied
         String target =dirPath;
