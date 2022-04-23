@@ -27,6 +27,7 @@ public class Client  {
             Registry registry= LocateRegistry.createRegistry(Integer.parseInt(PortNumber));
             DownloadInterface fi = new DownloadImpl(directoryName);
             System.out.println("Directory name  "+directoryName);
+
             registry.rebind("rmi://localhost:"+PortNumber+"/FileServer", fi);
         } catch(Exception e) {
             System.err.println("FileServer exception: "+ e.getMessage());

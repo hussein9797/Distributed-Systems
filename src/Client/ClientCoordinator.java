@@ -80,7 +80,7 @@ public class ClientCoordinator implements Runnable {
             }
         }
         Registry registry =LocateRegistry.getRegistry();
-//        DownloadInterface DownLoadStub = (DownloadInterface) registry.lookup("rmi://localhost:"+portForAnotherNode+"/FileServer");
+       DownloadInterface DownLoadStub = (DownloadInterface) registry.lookup("rmi://localhost:"+portForAnotherNode+"/FileServer");
 //        byte[] filetoDownload=DownLoadStub.downloadFile(targetFile);
         String source = sourceDir+"\\"+targetFile;
         //directory where file will be copied
