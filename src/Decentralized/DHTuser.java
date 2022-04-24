@@ -9,7 +9,7 @@ public class DHTuser implements Runnable {
     private ConcurrentHashMap<String, Socket> socketMapping;
     private Socket dhtClientSocket;
 
-    public String PATH_OF_FILE="SharedFolder";
+    public String PATH_OF_FILE="C:/Users/hussain.61/Desktop/Distributed-Systems/SharedFolder/";
 
     public DHTuser(ConcurrentHashMap<String, Socket> socketMapping) {
         this.socketMapping = socketMapping;
@@ -22,7 +22,9 @@ public class DHTuser implements Runnable {
 
         try {
 
+
             String choice;
+            do{
             System.out.println("1. Register a File");
             System.out.println("2. Search for a File");
             System.out.println("3. Obtain a File");
@@ -101,6 +103,73 @@ public class DHTuser implements Runnable {
                       }
 
                       break;
+                  case "2":	//SEARCH(FILENAME)
+
+                      //ask the client for filename to be searched
+                      System.out.println("Enter the File Name to be searched: ");
+                      getKeyName = dIS.readLine();
+
+                      //get the Hashvalue where to get the value from
+                      dhtClientSocket = myHashFunction(padKey(getKeyName));
+
+                      //loop to get the KEY, from VALUE provided
+                      for (Map.Entry<String, Socket> e : socketMapping.entrySet())
+                      {
+                          if(dhtClientSocket == null)
+                          {
+                              DHTServerName = ConfigureServer.serverArgs;
+                              break;
+                          }
+
+                          if(e.getValue() == dhtClientSocket)
+                          {
+                              DHTServerName = e.getKey();
+                              //System.out.println("Value of dhtserver: "+DHTServerName);
+                              break;
+                          }
+                      }
+
+                      //search in local hashtable,
+                      //else, find from other server
+                      if(dhtClientSocket == null)
+                      {
+                          System.out.println(DecServer.search(padKey(getKeyName)));
+
+                      }
+                      else
+                      {
+                          sockCommunicateStream(dhtClientSocket,choice,padKey(getKeyName));
+
+
+                          //CHECK FOR VARIOUS CONDITIONS, TO DISPLAY WHETHER FILE REPLICA CAN ALSO BE OBTAINED IN SEARCH
+						/*if(Integer.parseInt(DHTServerName.substring(DHTServerName.length()-1)) < 3)
+						{
+							dhtClientSocket = socketMapping.get("server3");
+							if(dhtClientSocket == null)
+							{
+								System.out.println(ServerSideImplementation.search(padKey(getKeyName)));
+							}
+							else
+							{
+								sockCommunicateStream(dhtClientSocket,choice,padKey(getKeyName));
+							}
+						}
+						else if(Integer.parseInt(DHTServerName.substring(DHTServerName.length()-1)) > 3
+								&& Integer.parseInt(DHTServerName.substring(DHTServerName.length()-1)) < 7)
+						{
+							dhtClientSocket = socketMapping.get("server7");
+							if(dhtClientSocket == null)
+							{
+								System.out.println(ServerSideImplementation.search(padKey(getKeyName)));
+							}
+							else
+							{
+								sockCommunicateStream(dhtClientSocket,choice,padKey(getKeyName));
+							}
+						}*/
+                      }
+                      break;
+
                   case "3":    //OBTAIN(FILENAME, CLIENT_NAME)
 
                       //Ask client for which file to obtain and from where
@@ -128,8 +197,8 @@ public class DHTuser implements Runnable {
                       break;
 
 
-              }
-              
+              }}while(!(choice.equals("4")));
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,7 +295,7 @@ public class DHTuser implements Runnable {
                 if(e.getValue() == dhtClientSocket)
                 {
                     DHTServerName = e.getKey();
-                    //System.out.println("Value of dhtserver in server failure: "+DHTServerName);
+                    System.out.println("Value of dhtserver in server failure: "+DHTServerName);
                     break;
                 }
             }

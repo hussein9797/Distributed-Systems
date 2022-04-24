@@ -15,7 +15,7 @@ public class DecServer implements Runnable {
     private Socket clientSocket;
     public static ConcurrentHashMap<String, ArrayList<String>> distributedHashTable = new ConcurrentHashMap<String, ArrayList<String>>();
 
-    public static String PATH_OF_FILE = "SharedFolder";
+    public static String PATH_OF_FILE = "C:/Users/hussain.61/Desktop/Distributed-Systems/SharedFolder/";
     boolean loop=true;
     public DecServer(Socket clientSocket)
     {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <Servers>
-        <ServerName>dfdf</ServerName>
+        <ServerName>server0</ServerName>
         <ServerPort>5004</ServerPort>
         <ServerIP>192.168.0.103</ServerIP>
     </Servers>
