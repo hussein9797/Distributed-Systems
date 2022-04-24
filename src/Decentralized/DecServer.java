@@ -17,6 +17,11 @@ public class DecServer implements Runnable {
 
     public static String PATH_OF_FILE = "SharedFolder";
     boolean loop=true;
+    public DecServer(Socket clientSocket)
+    {
+        // TODO Auto-generated constructor stub
+        this.clientSocket = clientSocket;
+    }
 
     @Override
     public void run() {
