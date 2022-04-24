@@ -50,6 +50,7 @@ public class ConfigureServer
             //Load the configuration file CONFIG.XML has information about all the servers
             File configFile = new File("config.xml");
             serverArgs = args[0];
+
             System.out.println("****************************");
             System.out.println("\t"+serverArgs);
             System.out.println("****************************");
@@ -129,7 +130,7 @@ public class ConfigureServer
             while(!serverSocket.isClosed())
             {
                 //System.out.println("Server waiting for client to accept\n");
-                clientSocket = serverSocket.accept();
+               clientSocket = serverSocket.accept();
 
                 //start the server side thread
                 Thread serverSide = new Thread(new DecServer(clientSocket));
